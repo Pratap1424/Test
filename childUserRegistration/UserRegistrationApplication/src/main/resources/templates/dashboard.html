@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>User Dashboard</title></head>
+<body>
+<h2 th:text="'Welcome, ' + ${firstName} + ' ' + ${lastName}"></h2>
+<h3 th:text="'Logged in as: ' + (${userType} == 'A' ? 'Admin' : 'User')"></h3>
+
+<form th:action="@{/show-users}" method="post">
+    <input type="hidden" name="email" th:value="${email}"/>
+    <input type="hidden" name="userType" th:value="${userType}"/>
+    <button type="submit">Show Existing User</button>
+</form>
+
+<div th:if="${users}">
+    <h3>User Info:</h3>
+    <table border="1">
+        <tr><th>First Name</th><th>Last Name</th><th>Email</th><th>Mobile</th></tr>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.mobileNumber}"></td>
+        </tr>
+    </table>
+
+    <form th:if="${userType == 'A'}" th:action="@{/download}" method="get">
+        <button type="submit">Download Users</button>
+    </form>
+</div>
+</body>
+</html>
