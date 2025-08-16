@@ -184,5 +184,7 @@ public class MainController {
         writer.flush();
         writer.close();
     }
-	
+	public void test() {
+		
+	}
 }
